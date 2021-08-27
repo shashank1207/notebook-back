@@ -134,17 +134,42 @@ const loginUser = async (req, res, next) => {
     token: token,
     message: "User successfully logged in.",
   });
+
+  mongoose.disconnect();
 };
 
 const verifyUser = (req, res, next) => {
-  const decoded = jwt.verify(req.body.token, "shashank@12071998");
-  req.user = decoded;
-  if (req.body.userId && req.body.userId === decoded.userId) {
-    res.status(200).json({ message: "You are authenticated." });
-  }
-  else{
-    return next(new HttpError(`your token: ${req.body.userId}`))
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+      return next(new HttpError("Authentication failed", 401));
+    }
+    let verified = {}
+    try {
+      verified = jwt.verify(token, "shashank@12071998");
+    } catch (err) {
+      return next(new HttpError("JWT Expired", 401));
+    }
+    req.user = { ...verified };
+    next();
+  } catch (err) {
+    return next(new HttpError("Authentication failed", 401));
   }
 };
 
-module.exports = { signupUser, loginUser, verifyUser };
+const getUser = async (req, res, next) => {
+  try {
+    const userData = await Users.findOne({ _id: req.user.userId });
+    res
+      .status(200)
+      .json({
+        userId: userData._id,
+        email: userData.email,
+        name: userData.name,
+      });
+  } catch (err) {
+    return next(new HttpError("Could not get the User", 500));
+  }
+};
+
+module.exports = { signupUser, loginUser, verifyUser, getUser };
