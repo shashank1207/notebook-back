@@ -1,9 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+require('dotenv').config();
 
 const authControllers = require("../controllers/auth-controllers");
 const notesControllers = require("../controllers/notes-controller");
+const scratchContollers = require("../controllers/scratch-controller")
 const HttpError = require("../models/http-error");
 
 const router = express.Router();
@@ -22,6 +24,22 @@ router.post("/add", notesControllers.addNotes);
 
 router.post("/update", notesControllers.updateNotes);
 
-router.get("/get-notes", notesControllers.getAllNotes);
+router.post("/update-title", notesControllers.updateTitle);
+
+router.get("/get-recent-notes", notesControllers.getRecentNotes);
+
+router.get("/get-all-notes", notesControllers.getAllNotes);
+
+router.get("/get-note", notesControllers.getNoteById);
+
+router.post("/add-tag", notesControllers.addTag);
+
+router.get("/get-tags", notesControllers.getTags);
+
+router.post("/delete-tag", notesControllers.removeTag);
+
+router.post("/update-scratch", scratchContollers.updateScratch);
+
+router.get("/get-scratch", scratchContollers.getScratch);
 
 module.exports = router;

@@ -6,7 +6,10 @@ const noteSchema = new Schema({
   title: { type: String, required: true },
   createdBy: { type: String, required: true },
   sharedWith: [[]],
-  createdOn: []
+  createdOn: [],
+  lastUpdated: {type: String, required: true},
+  lastOpened: {type: String, required: false},
+  tags: []
 });
 
 module.exports = model("Notes", noteSchema);

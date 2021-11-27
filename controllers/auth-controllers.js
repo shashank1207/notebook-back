@@ -15,7 +15,7 @@ const insertSaltInPassword = (string, salt, index) => {
 
 mongoose
   .connect(
-    "mongodb+srv://Shashank:Shashank@12@cluster0.b6msv.mongodb.net/notebook?retryWrites=true&w=majority",
+    process.env.DATABASE_LINK,
     { useNewUrlParser: true }
   )
   .then(() => {})
@@ -83,7 +83,6 @@ const signupUser = async (req, res, next) => {
     token: token,
   });
 
-  mongoose.disconnect();
 };
 
 const loginUser = async (req, res, next) => {
@@ -135,7 +134,6 @@ const loginUser = async (req, res, next) => {
     message: "User successfully logged in.",
   });
 
-  mongoose.disconnect();
 };
 
 const verifyUser = (req, res, next) => {
