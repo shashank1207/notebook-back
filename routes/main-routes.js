@@ -42,4 +42,16 @@ router.post("/update-scratch", scratchContollers.updateScratch);
 
 router.get("/get-scratch", scratchContollers.getScratch);
 
+router.post("/error", scratchContollers.errorCheck);
+
+router.post("/upload-file", notesControllers.uploadFile);
+
+router.post("/delete-note", notesControllers.deleteNote);
+
+router.get("/get-all-files", notesControllers.allFiles);
+
+router.get("/search-user", notesControllers.searchUser);
+
+router.post("/share-note", notesControllers.shareNote);
+
 module.exports = router;

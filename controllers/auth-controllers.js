@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const Users = require("../models/Users");
 const HttpError = require("../models/http-error");
+const {createNotebook} = require("../utils/create-notebook");
 
 const insertSaltInPassword = (string, salt, index) => {
   const preIn = string.slice(0, index);
@@ -62,6 +63,8 @@ const signupUser = async (req, res, next) => {
   } catch (err) {
     return next(new HttpError("Could not signup, please try again.", 500));
   }
+
+  createNotebook({id: createdUser.id, name: 'First Notebook'});
 
   let token;
   try {

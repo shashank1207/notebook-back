@@ -5,7 +5,7 @@ const noteSchema = new Schema({
   note: { type: String, required: false },
   title: { type: String, required: true },
   createdBy: { type: String, required: true },
-  sharedWith: [[]],
+  sharedWith: [],
   createdOn: [],
   lastUpdated: {type: String, required: true},
   lastOpened: {type: String, required: false},

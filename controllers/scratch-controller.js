@@ -14,7 +14,6 @@ const getScratch = async(req, res, next) => {
   try{
     const user = await Users.findById(req.user.userId);
     const scratch = user.scratch ? user.scratch : '';
-    console.log(scratch);
     res.status(200).json(scratch);
   }
   catch(err){
@@ -31,7 +30,12 @@ const updateScratch = async (req, res, next) => {
   } catch (err) {}
 };
 
+const errorCheck = async(req, res, next) => {
+  res.status(500).json({message: 'Not connected to the internet, please check your connection. blah blah blah'});
+}
+
 module.exports = {
   updateScratch,
-  getScratch
+  getScratch,
+  errorCheck
 };
