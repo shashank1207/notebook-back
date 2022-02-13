@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "npm test",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "lint": "eslint --fix --ext .js,.jsx ."
   },
   "repository": {
     "type": "git",

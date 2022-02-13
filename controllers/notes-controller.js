@@ -265,7 +265,10 @@ const searchUser = async (req, res, next) => {
 const shareNote = async (req, res, next) => {
   const note = await Notes.findById(req.body.noteId);
   const sharedWith = note.sharedWith;
-  if(req.user.uderId !== note.createdBy){
+  // if(req.user.userId !== note.createdBy){
+  //   console.log('yep')
+  // }
+  if(req.user.userId !== note.createdBy){
     res.status(200).json({ message: `Only Creator of the Note can share it with others. Please contact the creator of the Note.` });
     return;
   }
